@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<a href="@Url.Action("FileTest")?dl=1">
+    <img src="@Url.Action("FileTest")" alt="Csgo.png" />
+</a>
+
+<button id="btnJson">執行 JsonTest</button>
+
+@section Scripts{
+    <script>
+        $("#btnJson").on("click", function () {
+            $.get('@Url.Action("JsonTest", new { id = 2 })', "", function (data) {
+                console.log(data);
+            })
+        })
+    </script>
+}
+
