@@ -1,0 +1,27 @@
+﻿@model int[]
+
+題目一
+@foreach (var i in Model)
+{
+    @i
+}
+
+題目二
+
+@foreach (var i in Model)
+{
+    @i 
+    @(" ") 
+}
+
+@foreach (var i in Model)
+{
+<text>@i</text> }
+題目三
+
+<ul>
+    @foreach (var i in Model)
+    {
+  <li>@i</li>
+    }
+</ul>

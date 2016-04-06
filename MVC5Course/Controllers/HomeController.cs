@@ -13,6 +13,7 @@ namespace MVC5Course.Controllers
             return View();
         }
 
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -26,7 +27,23 @@ namespace MVC5Course.Controllers
 
             return View();
         }
-        public ActionResult Test()
+
+        /// <summary>
+        /// 例外測試Method
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        [HandleError(ExceptionType = typeof(InvalidOperationException), View = "Error2")]
+        public ActionResult Test(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException("參數錯誤");
+            }
+            throw new InvalidOperationException("操作錯誤");
+
+        }
+        public ActionResult NewLayout()
         {
             return View();
         }

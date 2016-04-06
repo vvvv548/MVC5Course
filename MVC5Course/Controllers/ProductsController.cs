@@ -10,6 +10,8 @@ using MVC5Course.Models;
 
 namespace MVC5Course.Controllers
 {
+    [計算action執行時間]
+    [Authorize]
     public class ProductsController : BaseController
     {
         //private FabricsEntities db = new FabricsEntities();
@@ -98,12 +100,13 @@ namespace MVC5Course.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)
+        public ActionResult Edit(int id,FormCollection form)
         {
-            if (ModelState.IsValid)
+            var product = repoProduct.Find(id);
+            if (TryUpdateModel(product,
+                new string[] { "ProductId", "ProductName", "Price", "Active", "Stock" }))
             {
-                var dbProduct = (FabricsEntities)repoProduct.UnitOfWork.Context;
-                dbProduct.Entry(product).State = EntityState.Modified;
+                //ModelState.AddModelError("欄位名稱","錯誤訊息");
                 repoProduct.UnitOfWork.Commit();
                 TempData["ProductSuccessMsg"] = product.ProductName + " 更新成功";
                 return RedirectToAction("Index");
